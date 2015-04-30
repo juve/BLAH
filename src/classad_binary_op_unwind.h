@@ -38,6 +38,11 @@
 #ifndef __CLASSAD_BINARY_OP_UNWIND_H__
 #define __CLASSAD_BINARY_OP_UNWIND_H__
 
+#ifndef BEGIN_NAMESPACE
+#define BEGIN_NAMESPACE( x ) namespace x {
+#define END_NAMESPACE }
+#endif
+
 #if defined(WANT_NAMESPACES) || defined (WANT_CLASSAD_NAMESPACE)
 using namespace classad;
 #endif

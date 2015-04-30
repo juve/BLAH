@@ -41,7 +41,7 @@ find_path(ClassAd_INCLUDE_DIR
 message(STATUS "ClassAd_INCLUDE_DIR == " ${ClassAd_INCLUDE_DIR})
 
 # The ClassAd library (should have namespaces enabled).
-set (ClassAd_LIBRARY_TO_FIND classad_ns)
+set (ClassAd_LIBRARY_TO_FIND classad)
 
 # Setting some more prefixes for the library
 set (ClassAd_LIB_PREFIX "")
@@ -77,6 +77,7 @@ main(int argc, char *argv[])
 set(ClassAd_CXX_FLAG_CANDIDATES
   "-DWANT_NAMESPACES"
   "-DWANT_CLASSAD_NAMESPACE"
+  "-std=c++11"
 )
 
 # check cxx compiler
@@ -99,8 +100,11 @@ foreach(FLAG ${ClassAd_CXX_FLAG_CANDIDATES})
   endif(ClassAd_FLAG_DETECTED)
 endforeach(FLAG ${ClassAd_CXX_FLAG_CANDIDATES})
 
-set(ClassAd_CXX_FLAGS "${ClassAd_CXX_FLAGS_INTERNAL}"
-  CACHE STRING "C++ compiler flags for use of the Condor Classad  library")
+#set(ClassAd_CXX_FLAGS "${ClassAd_CXX_FLAGS_INTERNAL}"
+#  CACHE STRING "C++ compiler flags for use of the Condor Classad  library")
+
+set(ClassAd_CXX_FLAGS "${ClassAd_CXX_FLAGS_INTERNAL}")
+
 message(STATUS "ClassAd_CXX_FLAGS == " ${ClassAd_CXX_FLAGS})
 # handle the standard arguments for find_package
 find_package_handle_standard_args(ClassAd DEFAULT_MSG 

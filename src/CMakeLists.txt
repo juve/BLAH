@@ -33,6 +33,7 @@ pkg_check_modules(GLOBUS_GSSAPI_GSI globus-gssapi-gsi)
 pkg_check_modules(GLOBUS_GSS_ASSIST globus-gss-assist)
 pkg_check_modules(GLOBUS_GSI_CREDENTIAL globus-gsi-credential)
 pkg_check_modules(GLOBUS_GSI_PROXY_CORE globus-gsi-proxy-core)
+pkg_check_modules(GLOBUS_GSI_SYSCFG globus-gsi-sysconfig)
 
 include_directories(.)
 
@@ -54,7 +55,10 @@ if (${GLOBUS_COMMON_FOUND} AND ${GLOBUS_IO_FOUND} AND NOT ${DISABLE_GLOBUS} )
 
 set(Globus_LIBRARY
     ${GLOBUS_GSI_PROXY_CORE_LDFLAGS}
-    ${GLOBUS_GSI_CREDENTIALS_LDFLAGS}
+    ${GLOBUS_GSI_CREDENTIAL_LDFLAGS}
+    ${GLOBUS_GSSAPI_GSI_LDFLAGS}
+    ${GLOBUS_COMMON_LDFLAGS}
+    ${GLOBUS_GSI_SYSCFG_LDFLAGS}
     ${GLOBUS_GSS_ASSIST_LDFLAGS})
 
 add_executable(BPRclient BPRclient.c BPRcomm.c tokens.c)

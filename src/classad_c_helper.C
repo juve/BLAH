@@ -49,6 +49,8 @@ extern "C"
 #include <string.h>
 #include "classad_c_helper.h"
 
+BEGIN_NAMESPACE( classad )
+
   classad_context 
   classad_parse (char *s_in)
    {
@@ -529,4 +531,5 @@ extern "C"
      }
    }
 
+ END_NAMESPACE
  } // end of extern "C"
