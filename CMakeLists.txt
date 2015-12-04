@@ -28,7 +28,8 @@ execute_process(COMMAND uname -i
 set(CPACK_SYSTEM_NAME "${CPACK_RPM_PACKAGE_RELEASE}.${local_arch}")
 endif (UNIX AND NOT APPLE)
 
-set(CMAKE_INSTALL_PREFIX "/usr")
+# This prevents anyone from overriding this variable on the command-line
+#set(CMAKE_INSTALL_PREFIX "/usr")
 
 set(CPACK_PACKAGE_VENDOR "EMI")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Batch Local ASCII Helper Protocol suite")
