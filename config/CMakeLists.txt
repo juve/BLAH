@@ -18,14 +18,14 @@ cmake_minimum_required(VERSION 2.6)
 install(FILES 
     blah.config.template 
     blparser.conf.template
-    DESTINATION /etc)
+    DESTINATION etc)
 
 install(FILES 
     glite-ce-blah-parser
     PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
                 GROUP_READ GROUP_EXECUTE
                 WORLD_READ WORLD_EXECUTE
-    DESTINATION /etc/rc.d/init.d)
+    DESTINATION etc/rc.d/init.d)
 
 install(FILES 
     glite-ce-check-blparser
