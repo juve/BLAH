@@ -38,6 +38,7 @@ foreach (manpage ${MAN1PAGES_TO_CREATE})
                              ${CMAKE_CURRENT_SOURCE_DIR}/${manpage_src}
                      DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${manpage_src})
   set_source_files_properties(${manpage} PROPERTIES GENERATED TRUE)
+  set(MAN1PAGES_CREATED ${MAN1PAGES_CREATED} ${CMAKE_CURRENT_BINARY_DIR}/${manpage})
 endforeach()
 
 add_custom_command(OUTPUT  blahpd_daemon.1
@@ -51,5 +52,5 @@ set(MAN1PAGES_TO_CREATE ${MAN1PAGES_TO_CREATE} blahpd_daemon.1)
 add_custom_target(all_manpages ALL
     DEPENDS ${MAN1PAGES_TO_CREATE} )
 
-install(FILES ${MAN1PAGES_TO_CREATE} DESTINATION man/man1)
+install(FILES ${MAN1PAGES_CREATED} DESTINATION man/man1)
 
