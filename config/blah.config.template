@@ -4,7 +4,7 @@
 
 ##Blah common variables
 
-#Supported batch systems (e.g. pbs,lsf)
+#Supported batch systems (e.g. pbs,lsf,sge,moab)
 supported_lrms=
 
 #DGAS logfile 
@@ -309,6 +309,12 @@ sge_rootpath=
 
 #path to the slurm executables
 slurm_binpath=
+
+##MOAB
+
+# Path to moab executables
+moab_binpath=
+#moab_binpath=$(which msub 2>/dev/null | sed 's|/msub$||')
 
 ##
 #####BNotifier subsection
