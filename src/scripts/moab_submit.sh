@@ -30,6 +30,15 @@
 
 bls_parse_submit_options "$@"
 
+# Condor doesn't pass classads for these args, so I didn't implement them
+# Arg         Variable                    ClassAd
+# -n          bls_opt_mpinodes            NodeNumber (int)
+# -N          bls_opt_hostsmpsize         HostSMPSize (int)
+# -z          bls_opt_wholenodes          WholeNodes (boolean)
+# -h          bls_opt_hostnumber          HostNumber (int)
+# -S          bls_opt_smpgranularity      SMPGranularity (int)
+# -a          bls_opt_xtra_args           BatchExtraSubmitArgs (string)
+
 bls_setup_all_files
 
 cat > $bls_tmp_file << end_of_preamble
@@ -46,24 +55,10 @@ cat > $bls_tmp_file << end_of_preamble
 #MSUB -m n
 end_of_preamble
 
-# Write queue attribute if specified
-if [ ! -z "$bls_opt_queue" ]; then
+# Write queue attribute if specified by +BatchQueue in submit file
+if [ -n "$bls_opt_queue" ]; then
     echo "#MSUB -q $bls_opt_queue" >> $bls_tmp_file
 fi
-
-# TODO Add support for these, or don't...
-#-n          bls_opt_mpinodes            NodeNumber (int)
-#-N          bls_opt_hostsmpsize         HostSMPSize (int)
-#-z          bls_opt_wholenodes          WholeNodes (boolean)
-#-h          bls_opt_hostnumber          HostNumber (int)
-#-S          bls_opt_smpgranularity      SMPGranularity (int)
-for var in bls_opt_mpinodes bls_opt_hostsmpsize bls_opt_wholenodes bls_opt_hostnumber bls_opt_smpgranularity; do
-    value=$(eval "\$${var}")
-    if [ ! -z "$value" ]; then
-        echo "1ERROR: unsupported variable \$$var"
-        exit 0
-    fi
-done
 
 #local batch system-specific file output must be added to the submit file
 bls_local_submit_attributes_file=${blah_libexec_directory}/moab_local_submit_attributes.sh
@@ -81,7 +76,7 @@ fi
 bls_add_job_wrapper
 
 # Submit job (this is how bls_opt_xtra_args should be done)
-jobID=$(${moab_binpath}/msub $bls_opt_xtra_args $bls_tmp_file)
+jobID=$(${moab_binpath}/msub $bls_tmp_file)
 retcode=$?
 if [ "$retcode" != "0" ]; then
     rm -f $bls_tmp_file
@@ -93,7 +88,7 @@ blahp_jobID="moab/foo/$jobID"
 echo "BLAHP_JOBID_PREFIX$blahp_jobID"
 
 # Add job to registry if configured
-if [ ! -z "$job_registry" ]; then
+if [ -n "$job_registry" ]; then
     now=$(date +%s)
     let now=$now-1
     ${blah_sbin_directory}/blah_job_registry_add "$blahp_jobID" "$jobID" 1 $now "$bls_opt_creamjobid" "$bls_proxy_local_file" "$bls_opt_proxyrenew_numeric" "$bls_opt_proxy_subject"
