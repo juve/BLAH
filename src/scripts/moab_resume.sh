@@ -27,5 +27,5 @@
 
 . $(dirname $0)/blah_load_config.sh
 
-jobid=${1:5}
+jobid=$(echo $1 | cut -d/ -f3)
 ${moab_binpath}/mjobctl -u $jobid >/dev/null 2>&1

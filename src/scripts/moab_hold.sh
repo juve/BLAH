@@ -27,7 +27,7 @@
 
 . $(dirname $0)/blah_load_config.sh
 
-jobid=${1:5}
+jobid=$(echo $1 | cut -d/ -f3)
 result=$(${moab_binpath}/checkjob $jobid | awk '
 /State:/ {
     print $2

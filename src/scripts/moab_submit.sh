@@ -88,8 +88,8 @@ if [ "$retcode" != "0" ]; then
     exit 1
 fi
 
-# Construct blah job ID
-blahp_jobID="moab/$jobID"
+# Construct blah job ID. Seems blah needs 3 components, so I put in some foo.
+blahp_jobID="moab/foo/$jobID"
 echo "BLAHP_JOBID_PREFIX$blahp_jobID"
 
 # Add job to registry if configured

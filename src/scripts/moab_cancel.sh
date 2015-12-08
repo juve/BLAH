@@ -30,7 +30,7 @@
 jnr=$#
 jc=0
 for job in "$@"; do
-    jobid=${job:5}
+    jobid=$(echo $job | cut -d/ -f3)
     cmdout=$(${moab_binpath}/mjobctl -c $jobid 2>&1)
     retcode=$?
     # If the job is already completed or no longer in the queue,

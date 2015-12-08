@@ -27,7 +27,7 @@
 
 . $(dirname $0)/blah_load_config.sh
 
-if [ "x$job_registry" != "x" ] ; then
+if [ -n "$job_registry" ]; then
    ${blah_sbin_directory}/blah_job_registry_lkup $@
    exit 0
 fi
@@ -48,7 +48,7 @@ done
 shift $(($OPTIND - 1))
 
 for job in "$@" ; do
-    jobid=${job:5}
+    jobid=$(echo $job | cut -d/ -f3)
     staterr=/tmp/${jobid}_staterr
     result=$(${moab_binpath}/checkjob -v $jobid 2>$staterr)
     checkjob_exit_code=$?
@@ -59,7 +59,7 @@ BEGIN {
     current_js = ""
 }
 
-/SystemJID:/ {
+/SystemJID: / {
     current_job = $2
 }
 
