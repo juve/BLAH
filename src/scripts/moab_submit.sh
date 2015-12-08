@@ -67,12 +67,12 @@ done
 
 #local batch system-specific file output must be added to the submit file
 bls_local_submit_attributes_file=${blah_libexec_directory}/moab_local_submit_attributes.sh
-if [ -r "$local_submit_attributes_file" ]; then
+if [ -r "$bls_local_submit_attributes_file" ]; then
     echo \#\!/bin/sh > $bls_opt_tmp_req_file
-    if [ ! -z $bls_opt_req_file ] ; then
+    if [ -n $bls_opt_req_file ]; then
         cat $bls_opt_req_file >> $bls_opt_tmp_req_file
     fi
-    echo "source $local_submit_attributes_file" >> $bls_opt_tmp_req_file
+    echo "source $bls_local_submit_attributes_file" >> $bls_opt_tmp_req_file
     chmod +x $bls_opt_tmp_req_file
     $bls_opt_tmp_req_file >> $bls_tmp_file 2> /dev/null
     rm -f $bls_opt_tmp_req_file

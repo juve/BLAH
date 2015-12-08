@@ -166,6 +166,7 @@ set(blah_scripts
     scripts/slurm_status.sh scripts/slurm_cancel.sh scripts/slurm_hold.sh
     scripts/slurm_resume.sh scripts/moab_submit.sh scripts/moab_status.sh
     scripts/moab_hold.sh scripts/moab_resume.sh scripts/moab_cancel.sh
+    scripts/moab_local_submit_attributes.sh
    )
 
 install(FILES
